@@ -21,7 +21,7 @@ To launch the program in console mode, after the ssh connection
 
 
 ```bash
-**cd Configurator**
+cd Configurator
 python3 main.py
 ```
 To stop the python program  Ctrl + c in the window where the program is launched.
