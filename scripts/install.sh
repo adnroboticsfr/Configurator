@@ -14,32 +14,17 @@ function die {
     exit 1
 }
 
-# Update system packages
-#echo "Updating system packages..."
-#sudo apt-get update -y || die "Failed to update packages."
 
 # Install necessary dependencies for Git and Python
 echo "Installing Git and Python dependencies..."
 sudo apt-get install -y git python3-venv python3-pip gettext || die "Failed to install Git and Python dependencies."
 
-
-# Navigate to the application directory
-cd "$APP_NAME" || die "Failed to navigate to the application directory."
-
-# Create a virtual environment
-echo "Creating a virtual environment..."
-python3 -m venv "$VENV_DIR" || die "Failed to create the virtual environment."
-
-# Activate the virtual environment
-source "$VENV_DIR/bin/activate" || die "Failed to activate the virtual environment."
+sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 
 # Install Python dependencies
 echo "Installing Python dependencies..."
 python3 -m pip install --upgrade pip || die "Failed to upgrade pip."
-python3 -m pip install requests qrcode[pil] || die "Failed to install Python dependencies."
-
-# Deactivate the virtual environment
-deactivate
+python3 -m pip install requests qrcode[pil] PyGObject==3.48 || die "Failed to install Python dependencies."
 
 # Create the Polkit rules file
 echo "Creating the Polkit rules file..."
@@ -55,5 +40,7 @@ echo "Reloading Polkit rules..."
 sudo systemctl restart polkit || die "Failed to restart Polkit rules."
 
 echo "Installation completed successfully!"
+
+cd Configurator
 
 python3 main.py
