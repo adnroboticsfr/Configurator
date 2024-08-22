@@ -3,18 +3,25 @@
 Test on a Yumios 1.1.0 version
 
 ## Install :
-
+```bash
 git clone https://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@github.com/adnroboticsfr/Configurator.git
+```
 
+```bash
 chmod +x Configurator/scripts/install.sh
+```
 
+```bash
 ./Configurator/scripts/install.sh
+```
 
 The installation script automatically launches the program in the Configurator/main.py folder
 
 To launch the program in console mode, after the ssh connection
 
+```bash
 python3 Configurator/main.py
+```
 
 If the application does not start and there is the following message:
 
