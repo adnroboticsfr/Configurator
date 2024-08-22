@@ -22,10 +22,6 @@ sudo apt-get update -y || die "Failed to update packages."
 echo "Installing Git and Python dependencies..."
 sudo apt-get install -y git python3-venv python3-pip || die "Failed to install Git and Python dependencies."
 
-# Clone the Git repository
-echo "Cloning the Git repository..."
-git clone "$REPO_URL" "$APP_NAME" || die "Failed to clone the Git repository."
-
 # Navigate to the application directory
 cd "$APP_NAME" || die "Failed to navigate to the application directory."
 
