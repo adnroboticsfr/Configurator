@@ -15,8 +15,8 @@ function die {
 }
 
 # Update system packages
-echo "Updating system packages..."
-sudo apt-get update -y || die "Failed to update packages."
+#echo "Updating system packages..."
+#sudo apt-get update -y || die "Failed to update packages."
 
 # Install necessary dependencies for Git and Python
 echo "Installing Git and Python dependencies..."
@@ -24,7 +24,7 @@ sudo apt-get install -y git python3-venv python3-pip || die "Failed to install G
 
 
 # Navigate to the application directory
-#cd "$APP_NAME" || die "Failed to navigate to the application directory."
+cd "$APP_NAME" || die "Failed to navigate to the application directory."
 
 # Create a virtual environment
 echo "Creating a virtual environment..."
