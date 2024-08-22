@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr_FR\n"
+
+msgid "Welcome to the 3D Printer Configuration"
+msgstr "Bienvenue dans la Configuration"
+
+msgid "Select Language"
+msgstr "Sélectionner la Langue"
+
+msgid "Network Select Wi-Fi"
+msgstr "Sélectionnez le réseau Wi-Fi"
+
+msgid "Connect to Wi-Fi to be able to send prints from your phone or computer!"
+msgstr "Connectez-vous au Wi-Fi pour pouvoir envoyer des impressions depuis votre téléphone ou ordinateur !"
+
+msgid "Connect to Wi-Fi"
+msgstr "Se Connecter au Wi-Fi"
+
+msgid "Skip"
+msgstr "Passer"
+
+msgid "Back"
+msgstr "Retour"
+
+msgid "1. Scan the QR code to connect to App Connect, or visit app.connect.com\n\n2. Log in, Code: RXXXXXXXXX5"
+msgstr "1. Scannez le QR code pour se connecter à App Connect, ou visitez app.connect.com\n\n2. Connectez-vous, Code: RXXXXXXXXX5"
+
+msgid "Enter the password -"
+msgstr "Entrez le mot de passe -"
+
+msgid "Connection Successful"
+msgstr "Connexion réussie"
+
+msgid "Connection Failed"
+msgstr "Échec de la connexion"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Connect"
+msgstr "Connect"
+
+msgid "Ok"
+msgstr "Ok"

@@ -1,0 +1,114 @@
+/* theme.css */
+
+/* Fond général de la fenêtre */
+window {
+    background-color: #000000; /* Noir */#106cc7
+}
+
+/* Fond des boîtes */
+.box {
+    background-color: #1a1a1a; /* Gris foncé */
+    padding: 10px;
+}
+
+
+
+/* Labels et Textes */
+label, button {
+    color: #f5a623; /* Orange */
+    font-size: 16px;
+}
+
+/* Boutons */
+button {
+    background-color: #333333; /* Gris très foncé */
+    border-color: #f5a623; /* Orange pour les bordures */
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Éléments actifs du bouton (hover) */
+button:hover {
+    background-color: #444444; /* Gris foncé */
+}
+
+/* Éléments du bouton pressés */
+button:active {
+    background-color: #555555; /* Gris moyen */
+}
+
+/* Entrées de texte */
+entry {
+    background-color: #222222; /* Gris très foncé */
+    color: #f5a623; /* Orange */
+    border: 1px solid #f5a623; /* Bordure orange */
+}
+
+/* Labels */
+label {
+    font-size: 22px;
+    color: #f5a623; /* Orange */
+}
+
+labelS {
+    font-size: 60px;
+    color: #f5a623; /* Orange */
+}
+
+/* Zones de liste */
+listbox {
+    background-color: #1a1a1a; /* Gris foncé */
+    border-color: #f5a623; /* Orange */
+}
+
+/* Éléments sélectionnés dans la liste */
+listboxrow:selected {
+    background-color: #333333; /* Gris très foncé */
+}
+
+/* theme.css */
+
+/* Style de base pour le message de bienvenue */
+#welcome-label {
+    font-size: 40px;
+    font-family: 'Arial', sans-serif;
+    color: #333333;
+}
+
+/* Style pour le message de bienvenue sans logo */
+#welcome-label.no-logo {
+    font-size: 28px;
+    font-weight: bold;
+
+}
+
+/* Style pour les titres */
+.title {
+    font-size: 28px;
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+#language-button {
+    border-width: 2px;
+    border-color: gray;
+    border-style: solid;
+    color: gray;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 10px;
+    background-color: white;
+}
+
+#language-button:hover {
+    background-color: lightgray;
+}
+
+#language-button:active {
+    background-color: darkgray;
+}
+
+

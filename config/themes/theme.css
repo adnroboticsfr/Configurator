@@ -1,0 +1,306 @@
+/* Thème Zen Noir pour Gtk */
+
+/* Fond de la fenêtre */
+window {
+    background-color: #000000; /* Noir */
+}
+
+/* Conteneur principal */
+box, flowbox {
+    background-color: #000000; /* Noir */
+    /*padding: 20px;*/ /* Espacement autour du contenu */
+}
+
+/* Label */
+.label {
+    color: #ffffff; /* Blanc */
+    font-size: 26px;
+    /*margin: 20px 0;*/ /* Espacement vertical */
+    /*background-color: #333333;*/ /* Gris foncé pour le fond des labels */
+    padding: 10px 10px;
+    border-radius: 10px; /* Coins légèrement arrondis */
+ 
+}
+
+/* Boutons */
+.button {
+    background-image: none; /* Supprime l'image de fond */
+    background-color: #444444; /* Gris foncé */
+    color: #ffffff; /* Blanc pour le texte des boutons */
+    border-radius: 0px; /* Coins arrondis */
+    padding: 15px 30px; /* Espacement interne des boutons */
+    border: 1px solid #555555; /* Bordure gris moyen */
+    font-size: 24px;
+    margin: 10px; /* Espacement externe entre les boutons */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transition douce pour hover et active */
+}
+
+.button:hover {
+    background-color: #555555; /* Gris plus clair au survol */
+}
+
+.button:active {
+    background-color: #333333; /* Gris plus foncé lorsque le bouton est actif */
+}
+
+/* Champs de texte */
+entry {
+    background-color: #333333; /* Gris foncé */
+    color: #ffffff; /* Texte blanc */
+    border: 1px solid #555555; /* Bordure gris moyen */
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0; /* Espacement externe vertical */
+}
+
+/* Barres de défilement */
+scrollbar {
+    background-color: #444444; /* Gris foncé */
+}
+
+scrollbar slider {
+    background-color: #666666; /* Gris moyen */
+    border-radius: 10px;
+}
+
+scrollbar slider:hover {
+    background-color: #888888; /* Gris plus clair au survol */
+}
+
+/* Couleurs pour les éléments activés */
+.button.selected {
+    background-color: #666666; /* Gris plus clair pour les éléments sélectionnés */
+}
+
+/* theme.css */
+
+/* Style de base pour le message de bienvenue */
+#welcome-label {
+    font-size: 32px;
+    font-family: 'Arial', sans-serif;
+    color: #af1818;
+    font-weight: bold;
+}
+
+/* Style pour le message de bienvenue sans logo */
+#welcome-label.no-logo {
+    font-size: 28px;
+    color: #af1818;
+    font-weight: bold;
+
+}
+
+/* Style pour les titres */
+.title {
+    color: #ffffff; /* Blanc */
+    font-size: 26px;
+    background-color: #222222; /* Gris foncé pour le fond des labels #550d0d;*/
+    padding: 20px 20px;
+    border-radius: 0px; /* Coins légèrement arrondis */
+    font-family: 'Arial', sans-serif;
+    /*color: #2c3e50;*/
+    font-weight: bold;
+}
+
+.switch {
+    background-color: #ff6600; /* Fond orange pour le switch */
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.switch:active {
+    background-color: #cc5200; /* Fond orange plus foncé lorsqu'il est cliqué */
+}
+
+/* Liste des réseaux Wi-Fi */
+listbox, .listbox {
+    background-color: #333333; /* Fond gris foncé pour la liste des SSID */
+    color: #ffffff; /* Texte blanc */
+    border-radius: 5px;
+    padding: 10px;
+}
+
+listboxrow, .listboxrow {
+    background-color: #444444; /* Fond gris moyen pour les éléments de la liste */
+    margin: 5px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+listboxrow:selected, .listboxrow:selected {
+    background-color: #ff6600; /* Fond orange pour l'élément sélectionné */
+}
+
+.password{
+    font-size: 30px; 
+    margin: 20px;
+}
+
+
+/* config/themes/theme.css */
+.network-button {
+    background-color: black; /* Fond noir */
+    color: grey; /* Texte en gris */
+    border: none; /* Supprimer les bordures */
+    padding: 10px; /* Espacement interne */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 20px; /* Taille de police */
+    font-weight: bold; /* Texte en gras */
+    
+}
+
+/* Style pour les labels à l'intérieur des boutons réseau */
+.network-button label {
+    color: grey; /* Couleur du texte dans le label */
+}
+
+
+/* Style pour les boutons réseau */
+.network-button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+}
+
+.network-button:hover {
+    background: #e0e0e0;
+}
+
+network-item-box{
+    margin: 30px;
+}
+
+/* Style pour le label du SSID */
+.ssid-label {
+    color: grey;
+    font-size: 18px;
+}
+
+/* Style pour les boutons de la boîte de dialogue */
+.dialog-button {
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.dialog-button.connect {
+    background-color: #4caf50;
+    color: white;
+}
+
+.dialog-button.cancel {
+    background-color: #f44336;
+    color: white;
+}
+
+
+
+/* Style général pour les boîtes de dialogue */
+.dialog {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.text-under-image{
+    font-size: 30px;
+    /*font-weight: bold;*/
+    color: white;
+    
+}
+
+/* Style par défaut des boutons */
+.language-button {
+    background-image: none; /* Supprime l'image de fond */
+    background-color: #444444; /* Gris foncé */
+    color: #ffffff; /* Blanc pour le texte des boutons */
+    border-radius: 0px; /* Coins arrondis */
+    padding: 15px 30px; /* Espacement interne des boutons */
+    border: 2px solid #555555; /* Bordure gris moyen */
+    font-size: 24px;
+    margin: 10px; /* Espacement externe entre les boutons */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transition douce pour hover et active */
+    font-weight: bold;
+}
+
+/* Style au survol (hover) des boutons */
+/*.language-button:hover {*/
+   /* background-color: #005f99;*/ /* Remplacez par la couleur que vous souhaitez */
+    /*color: white; */ /* Garder le texte blanc */
+/*}*/
+
+/* Style lors de l'appui sur le bouton */
+.language-button:active {
+    background-color: #af1818; /* Deep maroon text */
+    border-color: #f5f0f0; /* Border matches text color */
+}
+
+/* Style pour la barre de défilement */
+.scrolled-window {
+    border: 1px solid #ccc; /* Bordure pour délimiter la zone de défilement */
+ 
+}
+
+/* CSS pour les cases à cocher personnalisées */
+.check-button {
+    -GtkCheckButton-indicator-size: 24px;  /* Taille de l'indicateur de la case à cocher */
+    -GtkCheckButton-padding: 10px;         /* Espacement autour de la case à cocher */
+}
+
+/* Assurez-vous que le style est appliqué à vos boutons de case à cocher */
+.check-button * {
+    font-size: 18px;  /* Ajustez la taille du texte si nécessaire */
+}
+
+
+/* theme.css */
+
+/* Classe de base pour les labels de test */
+.test-label {
+    font-size: 24pt;  /* Taille de texte par défaut */
+}
+
+/* État en cours */
+.test-label.info {
+    color: #0000FF;  /* Bleu pour l'état en cours */
+}
+
+/* État de succès */
+.test-label.success {
+    color: #008000;  /* Vert pour le succès */
+}
+
+/* État d'erreur */
+.test-label.error {
+    color: #FF0000;  /* Rouge pour l'erreur */
+}
+
+/* Clavier Tactile */
+/* Exemple de CSS pour le widget Keyboard */
+.keyboard-custom {
+    font-family: "Arial", "Sans", sans-serif;
+}
+
+.keyboard-custom button {
+    font-family: "Arial", "Sans", sans-serif;
+    background-image: none; /* Supprime l'image de fond */
+    background-color: #444444; /* Gris foncé */
+    color: #ffffff; /* Blanc pour le texte des boutons */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 10px;  /* Espacement interne des boutons */
+    border: 1px solid #555555; /* Bordure gris moyen */
+    font-size:20px;
+    /*margin: 10px;*/ /* Espacement externe entre les boutons */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transition douce pour hover et active */
+}
+
+.keyboard-custom button:hover {
+    background-color: #0faa55; /* Couleur de fond au survol */
+}
+
+.keyboard-custom button:active {
+    background-color: #0faa55; /* Couleur de fond au survol */
+}
+
