@@ -3,8 +3,8 @@
 # Installation script for a Python application in a virtual environment
 
 # Configuration variables
-REPO_URL="https://github.com/your-repository.git"  # Replace with your Git repository URL
-APP_NAME="your_application_name"  # Replace with the name of your application
+REPO_URL="https://github.com/adnroboticsfr/Configurator.git"  # Replace with your Git repository URL
+APP_NAME="Configurator"  # Replace with the name of your application
 VENV_DIR="venv"  # Name of the virtual environment directory
 POLKIT_RULES_FILE="/usr/share/polkit-1/rules.d/50-nmcli.rules"
 
