@@ -198,7 +198,7 @@ class CalibrationStep(Gtk.Box):
             time.sleep(5)
                                     
             # Define the fan speeds from 0% to 100% in increments
-            speeds = [0, 51, 102, 153, 204, 255, 255, 255]
+            speeds = [0, 51, 102, 153, 204, 255, 255, 255,0]
             # Define the fan commands for extruder and head
             fan_commands = [
                 {"name": "Extruder Fan", "command": "M106 S", "fan_id": "extruder"},
