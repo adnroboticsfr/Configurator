@@ -19,7 +19,6 @@ the program in the Configurator/main.py folder
 
 To launch the program in console mode, after the ssh connection
 
-cd Configurator
 
 ```bash
 cd Configurator
@@ -37,9 +36,9 @@ it is because the installation variable is set to "setup_mode_enabled = False" b
 
 Launches standard and generic commands to all printers. Thanks to the button, you can select the test you want:
 
-- Fan test
-- Axis test
-- Speed ​​test (Warning!!! for this test the size of the plate must be approximately 230x230)
+**- Fan test**
+**- Axis test**
+**- Speed ​​test (Warning!!! for this test the size of the plate must be approximately 230x230)**
 
 Warning!!! Stand close to press the button to turn off the printer in case of a problem during the test. Test on d12-230 first!
 
