@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+
+msgid "Welcome to the 3D Printer Configuration"
+msgstr "欢迎来到 3D 打印机配置"
+
+msgid "Select Language"
+msgstr "选择语言"
+
+msgid "Network Select Wi-Fi"
+msgstr "选择Wi-Fi网络"
+
+msgid "Connect to Wi-Fi to be able to send prints from your phone or computer!"
+msgstr "连接 Wi-Fi，以便从手机或电脑发送打印任务！"
+
+msgid "Connect to Wi-Fi"
+msgstr "连接到 Wi-Fi"
+
+msgid "Skip"
+msgstr "跳过"
+
+msgid "Back"
+msgstr "返回"
+
+msgid "1. Scan the QR code to connect to App Connect, or visit app.connect.com\n\n2. Log in, Code: RXXXXXXXXX5"
+msgstr "1. 扫描二维码连接到 App Connect，或访问 app.connect.com\n\n2. 登录，代码：RXXXXXXXXX5"
+
+msgid "Enter the password -"
+msgstr "输入密码 -"
+
+msgid "Connection Successful"
+msgstr "连接成功"
+
+msgid "Connection Failed"
+msgstr "连接失败"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Connect"
+msgstr "连接"
+
+msgid "Ok"
+msgstr "确定"
+
+
+
+

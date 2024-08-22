@@ -10,7 +10,7 @@ msgid "Select Language"
 msgstr "Sélectionner la Langue"
 
 msgid "Network Select Wi-Fi"
-msgstr "Sélectionnez le Wi-Fi"
+msgstr "Sélectionnez le réseau Wi-Fi"
 
 msgid "Connect to Wi-Fi to be able to send prints from your phone or computer!"
 msgstr "Connectez-vous au Wi-Fi pour pouvoir envoyer des impressions depuis votre téléphone ou ordinateur !"

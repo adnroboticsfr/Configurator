@@ -15,15 +15,21 @@ chmod +x Configurator/scripts/install.sh
 ./Configurator/scripts/install.sh
 ```
 
-The installation script automatically launches the program in the Configurator/main.py folder
+the program in the Configurator/main.py folder
 
 To launch the program in console mode, after the ssh connection
 
+cd Configurator
+
 ```bash
-python3 Configurator/main.py
+cd Configurator
+python3 main.py
 ```
+To stop the python program  Ctrl + c in the window where the program is launched.
 
 If the application does not start and there is the following message:
+
+**Setup mode complete. Restart the application to apply changes.**
 
 it is because the installation variable is set to "setup_mode_enabled = False" because all the installation steps have been completed and disables the launch of the program. you have to change the value to "setup_mode_enabled = true" in the [main] section of the configuration file in the Configurator/config/config.conf folder.
 

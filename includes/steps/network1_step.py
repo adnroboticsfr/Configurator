@@ -14,7 +14,7 @@ class NetworkStep1(Gtk.Box):
         # Charger la configuration
         self.config = configparser.ConfigParser()
         self.config.read('config/config.conf')
-        self.image_path = self.config.get('Network_Select_WiFi', 'image_path', fallback='/path/to/default/image.png')
+        self.image_path = self.config.get('Network_Select_WiFi', 'image_path', fallback='assets/img/wificonfig.png')
         self.image_width = self.config.getint('Network_Select_WiFi', 'image_width', fallback=100)
         self.image_height = self.config.getint('Network_Select_WiFi', 'image_height', fallback=100)
 

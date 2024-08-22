@@ -31,6 +31,12 @@ class CalibrationStep(Gtk.Box):
         title_box.set_margin_end(10)
         self.pack_start(title_box, False, False, 0)
 
+                # Bouton de retour
+        back_button = Gtk.Button(label="<")
+        back_button.connect("clicked", self.on_back_clicked)
+        back_button.get_style_context().add_class('button')
+        title_box.pack_start(back_button, False, False, 0)
+
         # Title
         title_label = Gtk.Label(label="Calibration")
         title_label.get_style_context().add_class("title")
@@ -377,4 +383,7 @@ class CalibrationStep(Gtk.Box):
 
     def on_skip_clicked(self, button):
         """Handles the skip button click event."""
-        self.parent.switch_to_next_step()  # Assume you have a method to switch steps
+        self.parent.next_step() # Assume you have a method to switch steps
+
+    def on_back_clicked(self, button):
+        self.parent.previous_step()

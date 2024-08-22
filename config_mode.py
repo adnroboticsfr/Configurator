@@ -107,6 +107,8 @@ def run_config_mode():
             with open('config/config.conf', 'w') as configfile:
                 config.write(configfile)
             print(_("Setup mode complete. Restart the application to apply changes."))
+            for widget in self.step_container.get_children():
+                    widget.destroy()
 
     if not Gtk.init_check(None):
         raise RuntimeError("GTK could not be initialized.")
