@@ -20,7 +20,7 @@ function die {
 
 # Install necessary dependencies for Git and Python
 echo "Installing Git and Python dependencies..."
-sudo apt-get install -y git python3-venv python3-pip || die "Failed to install Git and Python dependencies."
+sudo apt-get install -y git python3-venv python3-pip gettext || die "Failed to install Git and Python dependencies."
 
 
 # Navigate to the application directory
@@ -36,7 +36,7 @@ source "$VENV_DIR/bin/activate" || die "Failed to activate the virtual environme
 # Install Python dependencies
 echo "Installing Python dependencies..."
 pip install --upgrade pip || die "Failed to upgrade pip."
-pip install requests gettext qrcode[pil] || die "Failed to install Python dependencies."
+pip install requests qrcode[pil] || die "Failed to install Python dependencies."
 
 # Deactivate the virtual environment
 deactivate
