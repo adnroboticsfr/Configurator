@@ -38,7 +38,7 @@ class CalibrationStep(Gtk.Box):
         title_box.pack_start(title_label, True, True, 0)
 
         # Skip Button
-        skip_button = Gtk.Button(label="Skip")
+        skip_button = Gtk.Button(label="Finish")
         skip_button.get_style_context().add_class('button')
         skip_button.connect("clicked", self.on_skip_clicked)
         title_box.pack_start(skip_button, False, False, 0)
