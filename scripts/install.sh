@@ -16,7 +16,7 @@ function die {
 
 
 # Install necessary dependencies for Git and Python
-echo "Installing Git and Python dependencies..."
+echo "Installing Python dependencies..."
 sudo apt-get install -y git python3-venv python3-pip gettext || die "Failed to install Git and Python dependencies."
 
 sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
@@ -24,7 +24,7 @@ sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 # Install Python dependencies
 echo "Installing Python dependencies..."
 python3 -m pip install --upgrade pip || die "Failed to upgrade pip."
-python3 -m pip install requests qrcode[pil] PyGObject==3.48 || die "Failed to install Python dependencies."
+python3 -m pip install requests qrcode[pil] || die "Failed to install Python dependencies."
 
 # Create the Polkit rules file
 echo "Creating the Polkit rules file..."
