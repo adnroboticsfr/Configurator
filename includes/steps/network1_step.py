@@ -82,13 +82,13 @@ class NetworkStep1(Gtk.Box):
         content_box.pack_start(text_button_box, True, True, 0)
 
         # Charger l'image et l'aligner à droite
-        if os.path.exists(self.image_path):
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(self.image_path, self.image_width, self.image_height, GdkPixbuf.InterpType.BILINEAR)
-            wifi_image = Gtk.Image.new_from_pixbuf(pixbuf)
-        else:
-            icon_size = 148  # Taille de l'icône par défaut
-            wifi_image = Gtk.Image.new_from_icon_name("network-wireless-symbolic", Gtk.IconSize.DIALOG)
-            wifi_image.set_size_request(icon_size, icon_size)
+        #if os.path.exists(self.image_path):
+           # pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(self.image_path, self.image_width, self.image_height, GdkPixbuf.InterpType.BILINEAR)
+            #wifi_image = Gtk.Image.new_from_pixbuf(pixbuf)
+        #else:
+        icon_size = 148  # Taille de l'icône par défaut
+        wifi_image = Gtk.Image.new_from_icon_name("network-wireless-symbolic", Gtk.IconSize.DIALOG)
+        wifi_image.set_size_request(icon_size, icon_size)
         
         # Créer un conteneur pour l'image et l'aligner vers le haut
         image_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
