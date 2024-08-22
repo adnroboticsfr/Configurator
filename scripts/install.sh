@@ -22,8 +22,9 @@ sudo apt-get update -y || die "Failed to update packages."
 echo "Installing Git and Python dependencies..."
 sudo apt-get install -y git python3-venv python3-pip || die "Failed to install Git and Python dependencies."
 
+
 # Navigate to the application directory
-cd "$APP_NAME" || die "Failed to navigate to the application directory."
+#cd "$APP_NAME" || die "Failed to navigate to the application directory."
 
 # Create a virtual environment
 echo "Creating a virtual environment..."
@@ -54,3 +55,5 @@ echo "Reloading Polkit rules..."
 sudo systemctl restart polkit || die "Failed to restart Polkit rules."
 
 echo "Installation completed successfully!"
+
+python3 main.py
