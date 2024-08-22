@@ -47,6 +47,7 @@ msgfmt -o config/locales/zh_CN/LC_MESSAGES/messages.mo config/locales/zh_CN/LC_M
 echo "Installation completed successfully!"
 
 cd Configurator
+
 python3 main.py
 
 
