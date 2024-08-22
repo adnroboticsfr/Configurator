@@ -39,11 +39,14 @@ echo 'polkit.addRule(function(action, subject) {
 echo "Reloading Polkit rules..."
 sudo systemctl restart polkit || die "Failed to restart Polkit rules."
 
-#msgfmt -o config/locales/en_US/LC_MESSAGES/messages.mo config/locales/en_US/LC_MESSAGES/messages.po
-#msgfmt -o config/locales/fr_FR/LC_MESSAGES/messages.mo config/locales/fr_FR/LC_MESSAGES/messages.po
-#msgfmt -o config/locales/es_ES/LC_MESSAGES/messages.mo config/locales/es_ES/LC_MESSAGES/messages.po
-#msgfmt -o config/locales/zh_CN/LC_MESSAGES/messages.mo config/locales/zh_CN/LC_MESSAGES/messages.po
+msgfmt -o config/locales/en_US/LC_MESSAGES/messages.mo config/locales/en_US/LC_MESSAGES/messages.po
+msgfmt -o config/locales/fr_FR/LC_MESSAGES/messages.mo config/locales/fr_FR/LC_MESSAGES/messages.po
+msgfmt -o config/locales/es_ES/LC_MESSAGES/messages.mo config/locales/es_ES/LC_MESSAGES/messages.po
+msgfmt -o config/locales/zh_CN/LC_MESSAGES/messages.mo config/locales/zh_CN/LC_MESSAGES/messages.po
 
 echo "Installation completed successfully!"
+
+cd Configurator
+python3 main.py
 
 
