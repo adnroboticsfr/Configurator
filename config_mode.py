@@ -40,9 +40,9 @@ def run_config_mode():
             self.steps = [
                 welcome_step.WelcomeStep(self),
                 language_step.LanguageStep(self),
-                #network1_step.NetworkStep1(self, self._),
-                #network2_step.NetworkStep2(self, self._),
-                #app_step.AppConnectStep(self),
+                network1_step.NetworkStep1(self, self._),
+                network2_step.NetworkStep2(self, self._),
+                app_step.AppConnectStep(self),
                 calibration_step.CalibrationStep(self, self._)
             ]
 
