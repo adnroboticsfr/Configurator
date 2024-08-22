@@ -35,8 +35,8 @@ source "$VENV_DIR/bin/activate" || die "Failed to activate the virtual environme
 
 # Install Python dependencies
 echo "Installing Python dependencies..."
-pip install --upgrade pip || die "Failed to upgrade pip."
-pip install requests qrcode[pil] || die "Failed to install Python dependencies."
+python3 -m pip install --upgrade pip || die "Failed to upgrade pip."
+python3 -m pip install requests qrcode[pil] || die "Failed to install Python dependencies."
 
 # Deactivate the virtual environment
 deactivate
