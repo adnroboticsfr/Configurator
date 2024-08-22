@@ -24,17 +24,17 @@ To launch the program in console mode, after the ssh connection
 cd Configurator
 python3 main.py
 ```
-To stop the python program  Ctrl + c in the window where the program is launched.
+To stop the python program  **Ctrl + c** in the window where the program is launched.
 
 If the application does not start and there is the following message:
 
 **Setup mode complete. Restart the application to apply changes.**
 
-it is because the installation variable is set to **"setup_mode_enabled = False"** because all the installation steps have been completed and disables the launch of the program. you have to change the value to **"setup_mode_enabled = true"** in the **[main]** section of the configuration file in the **Configurator/config/config.conf** folder.
+It is because the installation variable is set to **"setup_mode_enabled = False"** because all the installation steps have been completed and disables the launch of the program. you have to change the value to **"setup_mode_enabled = true"** in the **[main]** section of the configuration file in the **Configurator/config/config.conf** folder.
 
 # Calibration test
 
-Launches standard and generic commands to all printers. Thanks to the button, you can select the test you want:
+Launches standard and generic commands to all printers. You can select the test you want:
 
 **- Fan test**
 **- Axis test**
