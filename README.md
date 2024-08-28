@@ -4,7 +4,7 @@ Test on a Yumios 1.1.0 version
 
 ## Install :
 ```bash
-git clone https://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@github.com/adnroboticsfr/Configurator.git
+git clone https://github.com/adnroboticsfr/Configurator.git
 chmod +x Configurator/scripts/install.sh
 ./Configurator/scripts/install.sh
 ```
