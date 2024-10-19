@@ -42,7 +42,8 @@ def run_config_mode():
                 language_step.LanguageStep(self),
                 network1_step.NetworkStep1(self, self._),
                 network2_step.NetworkStep2(self, self._),
-                #app_step.AppConnectStep(self, self._),
+                #printersetup_step.PrinterSetup(self),
+                app_step.AppConnectStep(self, self._),
                 calibration_step.CalibrationStep(self, self._)
             ]
 
