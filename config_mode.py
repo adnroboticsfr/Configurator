@@ -2,7 +2,7 @@ import gi
 import os
 import configparser
 import gettext
-from includes.steps import language_step, app_step, network1_step, network2_step, welcome_step, calibration_step
+from includes.steps import language_step, app_step, network1_step, network2_step, welcome_step, calibration_step, printersetup_step
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk
@@ -40,20 +40,21 @@ def run_config_mode():
             self.steps = [
                 welcome_step.WelcomeStep(self),
                 language_step.LanguageStep(self),
-                network1_step.NetworkStep1(self, self._),
-                network2_step.NetworkStep2(self, self._),
-                #printersetup_step.PrinterSetup(self),
-                app_step.AppConnectStep(self, self._),
+                #network1_step.NetworkStep1(self, self._),
+                #network2_step.NetworkStep2(self, self._),
+                #app_step.AppConnectStep(self, self._),
+                printersetup_step.PrinterSetup(self),
                 calibration_step.CalibrationStep(self, self._)
             ]
 
             self.step_names = {
                 'welcome': 0,
                 'language': 1,
-                'network1': 2,
-                'network2': 3,
-                'app': 4,
-                'calibration': 5,
+                #'network1': 2,
+                #'network2': 3,
+                #'app': 4,
+                'printersetup': 2,
+                'calibration': 3,
             }
 
             self.current_step_index = 0

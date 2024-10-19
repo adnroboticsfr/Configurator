@@ -304,3 +304,129 @@ network-item-box{
     background-color: #0faa55; /* Couleur de fond au survol */
 }
 
+
+* {
+    font-size: 28px;
+}
+
+.big-button {
+    font-size: 28px;
+    padding: 10px;
+}
+
+.big-combo {
+    padding: 10px;
+    font-size: 28px;
+}
+/* Pour les boutons de sélection d'imprimante */
+.printer-button {
+    border: 2px solid gray; /* Contour gris */
+    border-radius: 5px;    /* Arrondir les coins si désiré */
+    background-color: black; /* Fond transparent */
+}
+
+/* Pour le texte du nom du modèle */
+.printer-label {
+    color: white; /* Texte blanc */
+    font-weight: bold; /* Texte en gras pour plus de visibilité */
+}
+/* Pour le fond noir de la vbox */
+.black-background {
+    background-color: black; /* Fond noir */
+    /*padding: 5px; *//* Optionnel : ajoute un peu de remplissage */
+}
+
+/* Style par défaut des boutons */
+.language-button1 {
+    background-image: none; /* Supprime l'image de fond */
+    background-color: #000000; /* Gris foncé */
+    color: #ffffff; /* Blanc pour le texte des boutons */
+    border-radius: 0px; /* Coins arrondis */
+    /*padding: 15px 30px;*/ /* Espacement interne des boutons */
+    border: 1px solid #555555; /* Bordure gris moyen */
+    /*font-size: 24px;*/
+    margin: 10px; /* Espacement externe entre les boutons */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transition douce pour hover et active */
+    /*font-weight: bold;*/
+}
+
+/* Style au survol (hover) des boutons */
+/*.language-button:hover {*/
+   /* background-color: #005f99;*/ /* Remplacez par la couleur que vous souhaitez */
+    /*color: white; */ /* Garder le texte blanc */
+/*}*/
+
+/* Style lors de l'appui sur le bouton */
+.language-button1:active {
+    background-color: #af1818; /* Deep maroon text */
+    border-color: #f5f0f0; /* Border matches text color */
+}
+
+/* Printer Selection Styling */
+.printer-label {
+    font-size: 14px;
+  
+}
+
+/* Button Styles */
+button {
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #f0f0f0;
+    color: #333;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/* Highlight the selected printer */
+.selected-printer {
+    background-color: #005f99; /* Highlight color */
+    color: white;
+    border: 2px solid #005f99;
+}
+
+.selected {
+    background-color: #005f99; /* Highlight selected options */
+    color: white;
+    border: 2px solid #005f99;
+}
+
+/* Grayed out button when not selected */
+button:disabled {
+    background-color: #e0e0e0;
+    color: #888;
+    border: 1px solid #ccc;
+}
+
+/* Hover effect for buttons */
+button:hover {
+    background-color: #0077cc;
+    color: white;
+}
+
+
+/* Default styles for Yes and No buttons */
+.button-yes {
+    background-color: blue; /* Default color for Yes */
+    color: white; /* Text color */
+}
+
+.button-no {
+    background-color: blue; /* Default color for No */
+    color: white; /* Text color */
+}
+
+/* Styles for when Yes is selected */
+.button-yes.selected {
+    background-color: gray; /* Change color to gray when selected */
+}
+
+/* Styles for when No is selected */
+.button-no.selected {
+   /* background-color: white; *//* Change color for No when selected */
+    color: black; /* Change text color for better visibility */
+}
+
+
+

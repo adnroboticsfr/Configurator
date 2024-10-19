@@ -88,7 +88,7 @@ class LanguageStep(Gtk.Box):
         for code, label in self.languages.items():
             button = Gtk.Button(label=label)
             button.set_size_request(200, 80)  # Taille fixe des boutons
-            button.get_style_context().add_class("language-button")
+            button.get_style_context().add_class("language-button1")
             button.connect("clicked", self.on_language_button_clicked, code)
             self.flowbox.add(button)
 
