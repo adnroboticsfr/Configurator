@@ -42,7 +42,7 @@ def run_config_mode():
                 language_step.LanguageStep(self),
                 network1_step.NetworkStep1(self, self._),
                 network2_step.NetworkStep2(self, self._),
-                app_step.AppConnectStep(self),
+                #app_step.AppConnectStep(self, self._),
                 calibration_step.CalibrationStep(self, self._)
             ]
 
@@ -109,6 +109,7 @@ def run_config_mode():
             print(_("Setup mode complete. Restart the application to apply changes."))
             for widget in self.step_container.get_children():
                     widget.destroy()
+
 
     if not Gtk.init_check(None):
         raise RuntimeError("GTK could not be initialized.")
