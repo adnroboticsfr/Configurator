@@ -25,10 +25,10 @@ class SuccessStep(Gtk.Box):
         title_box.set_margin_end(10)
 
         # Back button
-        back_button = Gtk.Button(label="<")
-        back_button.connect("clicked", self.on_back_clicked)
-        back_button.get_style_context().add_class('button')
-        title_box.pack_start(back_button, False, False, 0)
+        #back_button = Gtk.Button(label="<")
+        #back_button.connect("clicked", self.on_back_clicked)
+        #back_button.get_style_context().add_class('button')
+        #title_box.pack_start(back_button, False, False, 0)
 
         # Title label
         self.title_label = Gtk.Label(label="Configuration")
