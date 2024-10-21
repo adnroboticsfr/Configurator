@@ -47,9 +47,13 @@ echo "pi ALL=(ALL) NOPASSWD: /bin/systemctl restart klipper.service, /bin/system
 
 # Compile message translations
 echo "Compiling message translations..."
-msgfmt -o config/locales/en_US/LC_MESSAGES/messages.mo config/locales/en_US/LC_MESSAGES/messages.po
-msgfmt -o config/locales/fr_FR/LC_MESSAGES/messages.mo config/locales/fr_FR/LC_MESSAGES/messages.po
-msgfmt -o config/locales/es_ES/LC_MESSAGES/messages.mo config/locales/es_ES/LC_MESSAGES/messages.po
-msgfmt -o config/locales/zh_CN/LC_MESSAGES/messages.mo config/locales/zh_CN/LC_MESSAGES/messages.po
+#msgfmt -o config/locales/en_US/LC_MESSAGES/messages.mo config/locales/en_US/LC_MESSAGES/messages.po
+#msgfmt -o config/locales/fr_FR/LC_MESSAGES/messages.mo config/locales/fr_FR/LC_MESSAGES/messages.po
+#msgfmt -o config/locales/es_ES/LC_MESSAGES/messages.mo config/locales/es_ES/LC_MESSAGES/messages.po
+#msgfmt -o config/locales/zh_CN/LC_MESSAGES/messages.mo config/locales/zh_CN/LC_MESSAGES/messages.po
+
+# Make the copy_printer_cfg.sh script executable
+echo "Making copy_printer_cfg.sh executable..."
+chmod +x scripts/copy_printer_cfg.sh || die "Failed to make copy_printer_cfg.sh executable."
 
 echo "Installation completed successfully!"
