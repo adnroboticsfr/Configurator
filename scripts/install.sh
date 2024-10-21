@@ -54,6 +54,6 @@ echo "Compiling message translations..."
 
 # Make the copy_printer_cfg.sh script executable
 echo "Making copy_printer_cfg.sh executable..."
-chmod +x scripts/copy_printer_cfg.sh || die "Failed to make copy_printer_cfg.sh executable."
+chmod +x /home/pi/Configurator/scripts/copy_printer_cfg.sh || die "Failed to make copy_printer_cfg.sh executable."
 
 echo "Installation completed successfully!"
