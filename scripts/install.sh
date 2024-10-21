@@ -45,6 +45,10 @@ echo "Configuring passwordless sudo for restarting services..."
 # Add passwordless sudo for restarting Klipper, Klipperscreen, and Moonraker
 echo "pi ALL=(ALL) NOPASSWD: /bin/systemctl restart klipper.service, /bin/systemctl restart klipper-mcu.service, /bin/systemctl restart KlipperScreen.service, /bin/systemctl restart moonraker.service, /bin/systemctl restart moonraker-obico.service" | sudo tee "$SUDOERS_FILE" > /dev/null || die "Failed to configure passwordless sudo for services."
 
+# Make the copy_printer_cfg.sh script executable
+echo "Making copy_printer_cfg.sh executable..."
+chmod +x /home/pi/Configurator/scripts/copy_printer_cfg.sh || die "Failed to make copy_printer_cfg.sh executable."
+
 # Compile message translations
 echo "Compiling message translations..."
 #msgfmt -o config/locales/en_US/LC_MESSAGES/messages.mo config/locales/en_US/LC_MESSAGES/messages.po
@@ -52,8 +56,6 @@ echo "Compiling message translations..."
 #msgfmt -o config/locales/es_ES/LC_MESSAGES/messages.mo config/locales/es_ES/LC_MESSAGES/messages.po
 #msgfmt -o config/locales/zh_CN/LC_MESSAGES/messages.mo config/locales/zh_CN/LC_MESSAGES/messages.po
 
-# Make the copy_printer_cfg.sh script executable
-echo "Making copy_printer_cfg.sh executable..."
-chmod +x /home/pi/Configurator/scripts/copy_printer_cfg.sh || die "Failed to make copy_printer_cfg.sh executable."
+
 
 echo "Installation completed successfully!"
