@@ -25,6 +25,7 @@ class NetworkStep2(Gtk.Box):
         # Ajouter un style CSS
         self.add_custom_css()
 
+
     def create_page2(self):
         page2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0, margin=0)
         page2.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(0, 0, 0, 1))  # Fond noir
@@ -54,7 +55,7 @@ class NetworkStep2(Gtk.Box):
 
         # Bouton Skip
         self.skip_button = Gtk.Button(label=self._("Skip"))
-        self.skip_button.get_style_context().add_class('button')
+        self.skip_button.get_style_context().add_class('button2')
         self.skip_button.connect("clicked", self.on_skip_clicked)
         header_box.pack_start(self.skip_button, False, False, 0)
 
@@ -291,17 +292,18 @@ class NetworkStep2(Gtk.Box):
         content_area.set_spacing(0)  # Espacement entre les widgets
 
         # Titre
-        self.title_label_dialog = Gtk.Label(label=self._("Enter the password -") + f" {ssid}")
-        self.title_label_dialog.set_markup(f'<span size="xx-large" weight="bold" color="white">{self.title_label_dialog.get_text()}</span>')
-        self.title_label_dialog.set_margin_top(20)  # Espacement sous le titre
-        self.title_label_dialog.set_margin_bottom(0)  # Espacement sous le titre
-        content_area.pack_start(self.title_label_dialog, False, False, 0)
+        #self.title_label_dialog = Gtk.Label(label=self._("Enter the password -") + f" {ssid}")
+        #self.title_label_dialog.set_markup(f'<span size="xx-large" weight="bold" color="white">{self.title_label_dialog.get_text()}</span>')
+        #self.title_label_dialog.set_margin_top(14)  # Espacement sous le titre
+        #self.title_label_dialog.set_margin_bottom(6)  # Espacement sous le titre
+        #content_area.pack_start(self.title_label_dialog, False, False, 0)
 
         # Champ de texte pour le mot de passe
         self.password_entry = Gtk.Entry()
         self.password_entry.set_visibility(True)
         self.password_entry.set_placeholder_text(self._("Password"))
         self.password_entry.get_style_context().add_class("password")
+        self.password_entry.set_margin_top(28)
         self.password_entry.set_margin_bottom(6)  # Espacement sous le champ de texte
         content_area.pack_start(self.password_entry, False, False, 0)
 
@@ -320,7 +322,7 @@ class NetworkStep2(Gtk.Box):
         # Bouton Annuler
         self.cancel_button = Gtk.Button(label=self._("Cancel"))
         #self.cancel_button.set_size_request(150, 50)
-        self.cancel_button.get_style_context().add_class('button')
+        self.cancel_button.get_style_context().add_class('button3')
 
         self.cancel_button.connect("clicked", lambda x: dialog.response(Gtk.ResponseType.CANCEL))
         button_box.pack_start(self.cancel_button, False, False, 0)
@@ -328,7 +330,7 @@ class NetworkStep2(Gtk.Box):
         # Bouton Connecter
         self.connect_button = Gtk.Button(label=self._("Connect"))
         #self.connect_button.set_size_request(150, 50)
-        self.connect_button.get_style_context().add_class('button')
+        self.connect_button.get_style_context().add_class('button4')
         self.connect_button.connect("clicked", lambda x: dialog.response(Gtk.ResponseType.OK))
         button_box.pack_start(self.connect_button, False, False, 0)
 
@@ -405,12 +407,12 @@ class NetworkStep2(Gtk.Box):
         button_box.set_halign(Gtk.Align.CENTER)
         if success:
             self.ok_button_dialog = Gtk.Button(label=self._("Ok"))
-            self.ok_button_dialog.get_style_context().add_class("custom-button")
+            self.ok_button_dialog.get_style_context().add_class("button4")
             self.ok_button_dialog.connect("clicked", lambda x: dialog.response(Gtk.ResponseType.OK))
             button_box.pack_start(self.ok_button_dialog, False, False, 0)
         else:
             self.cancel_button_dialog = Gtk.Button(label=self._("Cancel"))
-            self.cancel_button_dialog.get_style_context().add_class("custom-button")
+            self.cancel_button_dialog.get_style_context().add_class("button3")
             self.cancel_button_dialog.connect("clicked", lambda x: dialog.response(Gtk.ResponseType.CANCEL))
             button_box.pack_start(self.cancel_button_dialog, False, False, 0)
 

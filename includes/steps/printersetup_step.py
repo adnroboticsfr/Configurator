@@ -1,11 +1,14 @@
 import gi
 import configparser
+import subprocess
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk
 
+
 class PrinterSetup(Gtk.Box):
     def __init__(self, parent):
-        super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=20, margin=20)
+        super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=20, margin=0)
         self.parent = parent
 
         # Load CSS
@@ -45,14 +48,6 @@ class PrinterSetup(Gtk.Box):
         self.prev_button.connect("clicked", self.on_previous_clicked)
         self.prev_button.set_sensitive(False)
 
-        # Add the Apply button
-        self.apply_button = Gtk.Button(label="Apply")  # Create the Apply button
-        self.apply_button.connect("clicked", self.on_apply_clicked)
-        self.apply_button.set_sensitive(False)  # Initially disabled
-
-        self.button_box.pack_start(self.prev_button, False, False, 0)
-        #self.button_box.pack_start(self.apply_button, False, False, 0)  # Add it to the button box
-
         # Set default selected printer
         self.selected_printer = "C235"  # Default printer
         self.apply_printer_selection_css(self.selected_printer)
@@ -66,27 +61,48 @@ class PrinterSetup(Gtk.Box):
 
     def create_printer_selection_page(self):
         """Create the printer selection page with images."""
-        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=16)
+        # Create a vertical box for the entire page
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=16)  # Increased spacing for uniformity
+        
+        # Create a horizontal box to hold the title and back button
+        title_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        title_box.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(0.13, 0.13, 0.13, 1))  # Background color #550d0d
 
+        # Create the back button
+        back_button = Gtk.Button(label="<")
+        back_button.connect("clicked", self.on_back_clicked)
+        back_button.get_style_context().add_class('button')
+
+        # Pack the back button into the title box
+        title_box.pack_start(back_button, False, False, 0)
+
+        # Create the title label
         label = Gtk.Label(label="Select Printer Model")
         label.get_style_context().add_class("title")
-        box.pack_start(label, False, False, 0)
+        label.set_xalign(0.3)
 
+        # Pack the label into the title box
+        title_box.pack_start(label, True, True, 0)
+
+        # Add the title box to the main box
+        box.pack_start(title_box, False, False, 0)
+
+        # Create a FlowBox for the printer models
         flowbox = Gtk.FlowBox()
         flowbox.set_max_children_per_line(3)
         flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
 
         # List of printer models and corresponding image file paths
         self.printers = [
-            ("C235", "images/C235.png"),
-            ("C335", "images/C335.png"),
-            ("C435", "images/C435.png")
+            ("C235", "assets/img/C235.png"),
+            ("C335", "assets/img/C335.png"),
+            ("C435", "assets/img/C435.png")
         ]
 
         for printer_name, image_path in self.printers:
             # Create a button with an image and label for each printer
             button1 = Gtk.Button()
-            button1.get_style_context().add_class("language-button1")
+            button1.get_style_context().add_class("printermodel-button")
             vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
             image = Gtk.Image.new_from_file(image_path)
@@ -103,247 +119,310 @@ class PrinterSetup(Gtk.Box):
 
             flowbox.add(button1)
 
+        # Create a ScrolledWindow for the FlowBox
         scrolled_window = Gtk.ScrolledWindow()
         scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.ALWAYS)
         scrolled_window.add(flowbox)
 
+        # Pack the scrolled window into the main box
         box.pack_start(scrolled_window, True, True, 0)
+
+        # Add spacing at the bottom using a Gtk.Alignment or a blank Gtk.Box
+        bottom_spacing = Gtk.Box()
+        bottom_spacing.set_size_request(-1, 30)  # Set space between bottom of screen and buttons
+        box.pack_start(bottom_spacing, False, False, 0)
+
         return box
 
     def create_head_type_page(self):
         """Create the head type selection page with image buttons."""
-        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=16)
+        # Create a vertical box for the entire page
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=16)  # Uniform spacing
 
+        # Create a horizontal box to hold the title and back button
+        title_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        title_box.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(0.13, 0.13, 0.13, 1))  # Background color
+
+        # Create the back button
+        back_button = Gtk.Button(label="<")
+        back_button.connect("clicked", self.on_previous_clicked)
+        back_button.get_style_context().add_class('button')
+
+        # Pack the back button into the title box
+        title_box.pack_start(back_button, False, False, 0)
+
+        # Create the title label
         label = Gtk.Label(label="Select Head Type")
         label.get_style_context().add_class("title")
-        box.pack_start(label, False, False, 0)
+        label.set_xalign(0.3)  # Center the label horizontally
+        title_box.pack_start(label, True, True, 0)
 
-        # Create a horizontal box for head type buttons
-        head_type_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        # Add the title box (with back button and title) to the main box
+        box.pack_start(title_box, False, False, 0)
+
+        # Create a horizontal box for head type buttons with reduced spacing
+        head_type_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)  # Reduced spacing between buttons
 
         # Define head types and their corresponding images
         head_types = [
-            ("Direct Drive", "images/direct_drive.png"),
-            ("12 Colors", "images/12_colors.png")
+            ("Direct-Drive", "assets/img/direct_drive.png"),
+            ("12-Colors", "assets/img/12_colors.png")
         ]
 
         for head_name, image_path in head_types:
             button = Gtk.Button()
-            button.get_style_context().add_class("language-button1")
+            button.get_style_context().add_class("printermodel-button")
+            
             vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
+            # Create and add the image, with padding to lower it slightly
             image = Gtk.Image.new_from_file(image_path)
             image.set_size_request(80, 100)
-            vbox.pack_start(image, True, True, 0)
+            vbox.pack_start(image, False, False, 30)  # Padding above the image to lower it slightly
 
+            # Create and add the label
             label = Gtk.Label(label=head_name)
             label.get_style_context().add_class("printer-label")
-            vbox.pack_start(label, False, False, 0)
+            vbox.pack_start(label, False, False, 2)  # Small padding between the image and label
 
+            # Add the vbox to the button
             button.add(vbox)
             button.set_size_request(80, 100)
             button.connect("clicked", self.on_head_type_button_clicked, head_name)
 
             head_type_box.pack_start(button, True, True, 0)
 
+        # Pack the head type box into the main vertical box
         box.pack_start(head_type_box, True, True, 0)
+
+        # Add spacing at the bottom using a Gtk.Box to create space between buttons and the bottom of the screen
+        bottom_spacing = Gtk.Box()
+        bottom_spacing.set_size_request(-1, 30)  # Space between bottom of screen and buttons
+        box.pack_start(bottom_spacing, False, False, 0)
+
         return box
 
+    # Add this method in your PrinterSetup class
+    def on_smartbox_selected(self, button, enabled):
+        """Handle Smartbox selection: save the choice and update configuration."""
+        print(f"Smartbox enabled: {enabled}")
+        self.smartbox_enabled = enabled
+
+        """Save selections and execute bash script."""
+        config = configparser.ConfigParser()
+
+        # Read the existing config file
+        config.read('config/config.conf')
+
+        # Update or add the necessary sections
+        if 'Printer' not in config:
+            config['Printer'] = {}
+        config['Printer']['model'] = self.selected_printer
+
+        if 'HeadType' not in config:
+            config['HeadType'] = {}
+        config['HeadType']['type'] = self.selected_head_type
+
+        if 'Smartbox' not in config:
+            config['Smartbox'] = {}
+        config['Smartbox']['enabled'] = str(self.smartbox_enabled)
+
+        if 'Hyperdrive' not in config:
+            config['Hyperdrive'] = {}
+        config['Hyperdrive']['enabled'] = str(self.hyperdrive_enabled)
+
+        # Write the changes back to the config file
+        with open('config/config.conf', 'w') as configfile:
+            config.write(configfile)
+
+        # Call the bash script with the selected values
+        subprocess.run(['/home/pi/Configurator/scripts/copy_printer_cfg.sh', self.selected_printer,
+                        self.selected_head_type, str(self.smartbox_enabled),
+                        str(self.hyperdrive_enabled)])
+
+        print("Configuration saved and bash script executed.")
+
+        # Move to the next step
+        self.parent.skip_to_step('success')
+
+    # Update the button creation in create_smartbox_hyperdrive_page method
     def create_smartbox_hyperdrive_page(self):
-        """Create the Smartbox and Hyperdrive selection page."""
+        """Create the Smartbox and Hyperdrive selection page with properly positioned title, description, and buttons."""
+        # Create a vertical box for the entire page
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=16)
 
+        # Create a horizontal box to hold the title and back button
+        title_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        title_box.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(0.13, 0.13, 0.13, 1))  # Background color for title bar
+
+        # Create the back button
+        back_button = Gtk.Button(label="<")
+        back_button.connect("clicked", self.on_previous_clicked)
+        back_button.get_style_context().add_class('button')
+
+        # Pack the back button into the title box
+        title_box.pack_start(back_button, False, False, 0)
+
+        # Title
         label = Gtk.Label(label="Smartbox and Hyperdrive Options")
         label.get_style_context().add_class("title")
-        box.pack_start(label, False, False, 0)
+        label.set_xalign(0.3) 
+        title_box.pack_start(label, True, True, 0)  # Center the title next to the back button
+
+        # Add the title box (with back button and title) to the main box
+        box.pack_start(title_box, False, False, 0)
+
+        # Description
+        description_label = Gtk.Label(label="Do you have a Smartbox?")
+        description_label.get_style_context().add_class("description-label")
+        description_label.set_markup("<span size='larger' foreground='white'>Do you have a Smartbox?</span>")
+        box.pack_start(description_label, False, False, 10)  # Reduced spacing here
 
         # Smartbox selection
-        smartbox_label = Gtk.Label(label="Enable Smartbox?")
-        smartbox_label.get_style_context().add_class("subtitle")
-        box.pack_start(smartbox_label, False, False, 0)
-
         smartbox_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        smartbox_column = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
 
-        self.smartbox_yes = Gtk.Button(label="Yes")
-        self.smartbox_yes.connect("clicked", self.on_smartbox_selected, True)
-        smartbox_box.pack_start(self.smartbox_yes, True, True, 0)
+        smartbox_icon = Gtk.Image.new_from_file("assets/img/smartbox_icon.png")
+        smartbox_column.pack_start(smartbox_icon, False, False, 0)
 
-        self.smartbox_no = Gtk.Button(label="No")
+        smartbox_label = Gtk.Label(label="Smartbox")
+        smartbox_label.get_style_context().add_class("subtitle")
+        smartbox_label.set_markup("<span size='larger' foreground='white'>Smartbox</span>")
+        smartbox_column.pack_start(smartbox_label, False, False, 0)
+
+        box.pack_start(smartbox_column, False, False, 0)
+
+        # Create a horizontal box for the button alignment
+        button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=40)
+
+        # Button for No (cross)
+        self.smartbox_no_image = Gtk.Image.new_from_file("assets/img/cross.png")  # Image for "No"
+        self.smartbox_no = Gtk.Button()
+        self.smartbox_no.get_style_context().add_class('button3')
+        self.smartbox_no.add(self.smartbox_no_image)
         self.smartbox_no.connect("clicked", self.on_smartbox_selected, False)
-        smartbox_box.pack_start(self.smartbox_no, True, True, 0)
+        self.smartbox_no.set_size_request(200, -1)  # Set a specific width
 
-        box.pack_start(smartbox_box, False, False, 0)
+        # Button for Yes (checkmark)
+        self.smartbox_yes_image = Gtk.Image.new_from_file("assets/img/checkmark.png")  # Image for "Yes"
+        self.smartbox_yes = Gtk.Button()
+        self.smartbox_yes.get_style_context().add_class('button3')
+        self.smartbox_yes.add(self.smartbox_yes_image)
+        self.smartbox_yes.connect("clicked", self.on_smartbox_selected, True)
+        self.smartbox_yes.set_size_request(200, -1)  # Set a specific width
 
-        # Hyperdrive selection
-        hyperdrive_label = Gtk.Label(label="Enable Hyperdrive?")
-        hyperdrive_label.get_style_context().add_class("subtitle")
-        box.pack_start(hyperdrive_label, False, False, 0)
+        # Set margins for the buttons to keep them away from the screen edges
+        self.smartbox_no.set_margin_left(20)   # Left margin
+        self.smartbox_no.set_margin_right(20)  # Right margin
+        self.smartbox_yes.set_margin_left(20)   # Left margin
+        self.smartbox_yes.set_margin_right(20)  # Right margin
 
-        hyperdrive_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        # Pack the buttons into the button box
+        button_box.pack_start(self.smartbox_no, False, False, 0)  # Keep the size unchanged
+        button_box.pack_end(self.smartbox_yes, False, False, 0)   # Keep the size unchanged
 
-        self.hyperdrive_yes = Gtk.Button(label="Yes")
-        self.hyperdrive_yes.connect("clicked", self.on_hyperdrive_selected, True)
-        hyperdrive_box.pack_start(self.hyperdrive_yes, True, True, 0)
-
-        self.hyperdrive_no = Gtk.Button(label="No")
-        self.hyperdrive_no.connect("clicked", self.on_hyperdrive_selected, False)
-        hyperdrive_box.pack_start(self.hyperdrive_no, True, True, 0)
-
-        box.pack_start(hyperdrive_box, False, False, 0)
-
-        # Add validation button to save the selections and proceed
-        validate_button = Gtk.Button(label="Confirm")
-        validate_button.connect("clicked", self.on_validate_clicked)
-        box.pack_start(validate_button, False, False, 0)
+        # Pack the button box with reduced spacing to lift buttons slightly
+        box.pack_start(button_box, False, False, 20)  # Adjusted spacing to lower buttons
 
         return box
+
 
     def on_printer_button_clicked(self, button, printer_name):
         """Handle printer selection."""
         print(f"Selected Printer: {printer_name}")
         self.selected_printer = printer_name
-        
+
         # Save selection to config
         self.save_selected_printer(printer_name)
-
-        # Apply CSS to highlight the selected printer
-        self.apply_printer_selection_css(printer_name)
 
         # Automatically move to the head type selection page
         self.stack.set_visible_child_name("head_type_page")
         self.prev_button.set_sensitive(True)
-        self.apply_button.set_sensitive(True)  # Enable the apply button
 
-    def on_head_type_button_clicked(self, button, head_name):
-        """Handle head type selection."""
-        print(f"Selected Head Type: {head_name}")
-        self.selected_head_type = head_name
-        
-        # Save selection to config
-        self.save_selected_head_type(head_name)
-
-        # Automatically move to the Smartbox and Hyperdrive selection page
-        self.stack.set_visible_child_name("smartbox_hyperdrive_page")
-        self.prev_button.set_sensitive(True)
-        self.apply_button.set_sensitive(True)  # Enable the apply button
-
-
-    def on_smartbox_selected(self, button, is_enabled):
-        """Handle Smartbox selection."""
-        self.smartbox_enabled = is_enabled
-        print(f"Smartbox Enabled: {self.smartbox_enabled}")
-
-        # Update button styles
-        self.update_smartbox_buttons()
-
-    def on_hyperdrive_selected(self, button, is_enabled):
-        """Handle Hyperdrive selection."""
-        self.hyperdrive_enabled = is_enabled
-        print(f"Hyperdrive Enabled: {self.hyperdrive_enabled}")
-
-        # Update button styles
-        self.update_hyperdrive_buttons()
-
-    def update_smartbox_buttons(self):
-        """Update the styles of Smartbox buttons."""
-        if self.smartbox_enabled:
-            self.smartbox_yes.get_style_context().add_class("selected")
-            self.smartbox_no.get_style_context().remove_class("selected")
-        else:
-            self.smartbox_yes.get_style_context().remove_class("selected")
-            self.smartbox_no.get_style_context().add_class("selected")
-
-    def update_hyperdrive_buttons(self):
-        """Update the styles of Hyperdrive buttons."""
-        if self.hyperdrive_enabled:
-            self.hyperdrive_yes.get_style_context().add_class("selected")
-            self.hyperdrive_no.get_style_context().remove_class("selected")
-        else:
-            self.hyperdrive_yes.get_style_context().remove_class("selected-button")
-            self.hyperdrive_no.get_style_context().add_class("selected-button")
-
-    def on_validate_clicked(self, button):
-        """Save selections and proceed to next step."""
-        self.save_smartbox_hyperdrive_settings()
-        self.stack.set_visible_child_name("printer_page")  # Navigate to the printer page or next step
-        print(f"Smartbox: {self.smartbox_enabled}, Hyperdrive: {self.hyperdrive_enabled}")
-
-    def apply_printer_selection_css(self, printer_name):
-        """Apply CSS styles for selected printer."""
-        # Reset all buttons' styles
-        for p in self.printers:
-            button = self.get_child_button(p[0])
-            if button:
-                button.get_style_context().remove_class("selected-printer")
-
-        # Highlight the selected printer
-        button = self.get_child_button(printer_name)
-        if button:
-            button.get_style_context().add_class("selected-printer")
-
-    def get_child_button(self, printer_name):
-        """Get the button for a specific printer name."""
-        for child in self.get_children()[0].get_children()[0].get_children():  # Navigate to FlowBox
-            if isinstance(child, Gtk.Button):  # Check if the child is a button
-                vbox = child.get_children()[0]  # Get the VBox
-                label = vbox.get_children()[1]  # Get the label
-                if label.get_label() == printer_name:
-                    return child
-        return None
+        # Apply CSS styling to indicate selection
+        self.apply_printer_selection_css(printer_name)
 
     def save_selected_printer(self, printer_name):
-        """Save the selected printer name to the configuration file."""
+        """Save the selected printer model to the configuration file."""
         config = configparser.ConfigParser()
+        
+        # Read the existing config file
         config.read('config/config.conf')
-        config['printer'] = {'selected_printer': printer_name}
+        
+        # If 'Printer' section doesn't exist, add it
+        if 'Printer' not in config:
+            config['Printer'] = {}
 
+        # Update the selected printer in the config
+        config['Printer']['model'] = printer_name
+
+        # Write the updated config back to the file
         with open('config/config.conf', 'w') as configfile:
             config.write(configfile)
 
-    def save_selected_head_type(self, head_name):
-        """Save the selected head type to the configuration file."""
-        config = configparser.ConfigParser()
-        config.read('config/config.conf')
-        config['head'] = {'selected_head_type': head_name}
+        print(f"Printer {printer_name} saved to configuration file.")
 
+    def apply_printer_selection_css(self, printer_name):
+        """Update CSS for printer selection."""
+        for name, image_path in self.printers:
+            if name == printer_name:
+                style_class = "selected-printer"
+            else:
+                style_class = "unselected-printer"
+
+            # Apply your custom CSS logic here for borders, colors, etc.
+
+    def on_head_type_button_clicked(self, button, head_type):
+        """Handle head type selection."""
+        print(f"Selected Head Type: {head_type}")
+        self.selected_head_type = head_type
+
+        # Automatically move to Smartbox and Hyperdrive selection
+        self.stack.set_visible_child_name("smartbox_hyperdrive_page")
+    
+    #def on_smartbox_selected(self, button, enabled):
+        #"""Handle Smartbox selection."""
+        #print(f"Smartbox Enabled: {enabled}")
+        #self.smartbox_enabled = enabled
+
+    def on_validate_clicked(self, button):
+        """Save selections and execute bash script."""
+        config = configparser.ConfigParser()
+
+        # Read the existing config file
+        config.read('config/config.conf')
+
+        # Update or add the necessary sections
+        if 'Printer' not in config:
+            config['Printer'] = {}
+        config['Printer']['model'] = self.selected_printer
+
+        if 'HeadType' not in config:
+            config['HeadType'] = {}
+        config['HeadType']['type'] = self.selected_head_type
+
+        if 'Smartbox' not in config:
+            config['Smartbox'] = {}
+        config['Smartbox']['enabled'] = str(self.smartbox_enabled)
+
+        # Write the changes back to the config file
         with open('config/config.conf', 'w') as configfile:
             config.write(configfile)
 
-    def save_smartbox_hyperdrive_settings(self):
-        """Save Smartbox and Hyperdrive settings to the configuration file."""
-        config = configparser.ConfigParser()
-        config.read('config/config.conf')
-        config['smartbox'] = {'enabled': str(self.smartbox_enabled)}
-        config['hyperdrive'] = {'enabled': str(self.hyperdrive_enabled)}
+        # Call the bash script with the selected values, even if some arguments are not used in the script
+        subprocess.run(['/home/pi/Configurator/scripts/copy_printer_cfg.sh', self.selected_printer,
+                        self.selected_head_type, str(self.smartbox_enabled)])
 
-        with open('config/config.conf', 'w') as configfile:
-            config.write(configfile)
+        print("Configuration saved and bash script executed.")
+
 
     def on_previous_clicked(self, button):
-        """Switch to the previous page."""
-        current_page = self.stack.get_visible_child_name()
-        if current_page == "head_type_page":
+        """Handle 'Previous' button click."""
+        if self.stack.get_visible_child_name() == "head_type_page":
             self.stack.set_visible_child_name("printer_page")
             self.prev_button.set_sensitive(False)
-            self.apply_button.set_sensitive(False)
-        elif current_page == "smartbox_hyperdrive_page":
+        elif self.stack.get_visible_child_name() == "smartbox_hyperdrive_page":
             self.stack.set_visible_child_name("head_type_page")
-            self.prev_button.set_sensitive(True)
-            self.apply_button.set_sensitive(True)
 
-    def on_apply_clicked(self, button):
-        """Apply the selected settings."""
-        print(f"Printer: {self.selected_printer}, Head Type: {self.selected_head_type}, Smartbox: {self.smartbox_enabled}, Hyperdrive: {self.hyperdrive_enabled}")
-        # Additional logic to save or apply these settings.
-
-if __name__ == "__main__":
-    win = Gtk.Window()
-    win.set_title("Printer Setup")
-    win.set_default_size(800, 500)
-    win.connect("destroy", Gtk.main_quit)
-
-    setup_page = PrinterSetup(None)
-    win.add(setup_page)
-    win.show_all()
-
-    Gtk.main()
+    def on_back_clicked(self, button):
+        self.parent.skip_to_step('network1')

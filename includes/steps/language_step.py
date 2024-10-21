@@ -25,7 +25,10 @@ class LanguageStep(Gtk.Box):
         self.rows = self.config.getint('select_language', 'rows', fallback=4)
 
         # Obtenir la liste des langues depuis le fichier de configuration
-        self.languages = self.get_languages_from_config()  
+        self.languages = self.get_languages_from_config()
+
+        # Initialiser la langue par défaut depuis le fichier de configuration
+        self.default_language = self.config.get('main', 'language', fallback='en')
 
         # Créer un conteneur principal
         self.main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
@@ -39,12 +42,7 @@ class LanguageStep(Gtk.Box):
 
         # Créer un conteneur pour les boutons de langue avec une barre de défilement
         scroll_window = Gtk.ScrolledWindow()
-        #scroll_window.set_vexpand(True)
-        #scroll_window.set_hexpand(True)
-        
-        # Forcer l'affichage des barres de défilement
         scroll_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-        
         self.main_box.pack_start(scroll_window, True, True, 0)
 
         # Appliquer les styles personnalisés pour la barre de défilement
@@ -66,6 +64,9 @@ class LanguageStep(Gtk.Box):
         # Ajouter les boutons de langue
         self.add_language_buttons()
 
+        # Mettre à jour la langue sélectionnée visuellement
+        self.update_selected_language()
+
         self.show_all()
 
     def get_languages_from_config(self):
@@ -85,19 +86,53 @@ class LanguageStep(Gtk.Box):
         return languages
 
     def add_language_buttons(self):
+        """Ajouter les boutons de langue avec la mise en surbrillance de la langue par défaut."""
+        self.buttons = {}  # Dictionnaire pour stocker les boutons
+        
         for code, label in self.languages.items():
             button = Gtk.Button(label=label)
             button.set_size_request(200, 80)  # Taille fixe des boutons
-            button.get_style_context().add_class("language-button1")
+            button.get_style_context().add_class("language-button")
+
+            # Si la langue actuelle est celle par défaut, appliquer la classe 'selected'
+            if code == self.default_language:
+               button.get_style_context().add_class('selected')
+
+            # Connecter le signal de clic pour mettre à jour la langue
             button.connect("clicked", self.on_language_button_clicked, code)
             self.flowbox.add(button)
+            self.buttons[code] = button  # Stocker le bouton pour référence ultérieure
+
+    def update_selected_language(self):
+        """Mettre à jour visuellement la langue sélectionnée en fonction de la configuration enregistrée."""
+        # Relire la langue actuellement enregistrée dans la configuration
+        self.default_language = self.config.get('main', 'language', fallback='en')
+
+        # Mettre à jour la mise en surbrillance des boutons
+        for code, button in self.buttons.items():
+            if code == self.default_language:
+                button.get_style_context().add_class('selected')  # Mettre en surbrillance
+            else:
+                button.get_style_context().remove_class('selected')  # Retirer la surbrillance
 
     def on_language_button_clicked(self, button, language_code):
-        self.config.set('main', 'language', language_code)
-        with open('config/config.conf', 'w') as configfile:
-            self.config.write(configfile)
-        self.parent.setup_translation(language_code)  # Mettre à jour la langue en temps réel
-        self.update_application_configs(language_code)
+        # Mettre à jour la langue dans le fichier de configuration si elle est différente
+        if language_code != self.default_language:
+            self.config.set('main', 'language', language_code)
+            with open('config/config.conf', 'w') as configfile:
+                self.config.write(configfile)
+
+            # Mettre à jour la langue dans l'application
+            self.parent.setup_translation(language_code)
+            self.update_application_configs(language_code)
+
+            # Mettre à jour la langue par défaut
+            self.default_language = language_code
+
+        # Mettre à jour visuellement la sélection
+        self.update_selected_language()
+
+        # Passer à l'étape suivante
         self.parent.next_step()
 
     def update_application_configs(self, language_code):
@@ -123,27 +158,6 @@ class LanguageStep(Gtk.Box):
 
         print(f"Updated application configs for language: {language_code}")
 
-    def create_and_translate_files(self, language_code):
-        """Créer et traduire les fichiers de langue si nécessaire"""
-        locale_dir = 'config/locales'
-        lang_dir = os.path.join(locale_dir, f'{language_code}/LC_MESSAGES')
-        if not os.path.exists(lang_dir):
-            os.makedirs(lang_dir)
-            po_file = os.path.join(lang_dir, 'messages.po')
-            if not os.path.exists(po_file):
-                with open(po_file, 'w') as file:
-                    file.write(f'''
-msgid ""
-msgstr ""
-"Content-Type: text/plain; charset=UTF-8\\n"
-"Content-Transfer-Encoding: 8bit\\n"
-"Language: {language_code}\\n"
-
-msgid "Welcome to ConfigFlowX!"
-msgstr ""
-''')
-                print(f"Created new translation file for {language_code}")
-
     def convert_language_code_klipperScreen(self, language_code):
         # Liste des exceptions où le code de langue doit rester inchangé
         exceptions = ['zh_CN']
@@ -152,46 +166,6 @@ msgstr ""
         else:
             # Diviser la chaîne locale par le tiret bas ('_') et prendre la première partie
             return language_code.split('_')[0]
-
-    def update_application_configs(self, language_code):
-        """Mettre à jour les fichiers de configuration pour Mainsail et KlipperScreen"""
-        mainsail_config_path = '/home/pi/printer_data/config/config.txt'
-        klipperscreen_config_path = '/home/pi/printer_data/config/KlipperScreen.conf'
-        language_code = self.convert_language_code_klipperScreen(language_code)
-        
-        # Mettre à jour le fichier de configuration de KlipperScreen
-        if os.path.exists(klipperscreen_config_path):
-            with open(klipperscreen_config_path, 'r') as file:
-                lines = file.readlines()
-            section_found = False
-            language_line_found = False
-            temp_file_path = klipperscreen_config_path + '.tmp'            
-            with open(temp_file_path, 'w') as temp_file:
-                in_main_section = False
-                for line in lines:
-                    if line.strip() == "#~# --- Do not edit below this line. This section is auto generated --- #~#":
-                        temp_file.write(line)
-                        in_main_section = False
-                        continue
-                   
-                    if line.strip().startswith("#~# [main]"):
-                        in_main_section = True
-                        section_found = True
-                    # Modifier ou ajouter la ligne de langue
-                    if in_main_section and line.strip().startswith("#~# language"):
-                        language_line_found = True
-                        temp_file.write(f"#~# language = {language_code}\n")
-                    else:
-                        temp_file.write(line)                        
-                if not section_found:
-                    temp_file.write("#~# --- Do not edit below this line. This section is auto generated --- #~#\n")
-                    temp_file.write("#~#\n")
-                    temp_file.write("#~# [main]\n")
-                    temp_file.write(f"#~# language = {language_code}\n")
-                elif not language_line_found and in_main_section:
-                    temp_file.write(f"#~# language = {language_code}\n")  
-            # Remplacer le fichier original par le fichier temporaire
-            os.replace(temp_file_path, klipperscreen_config_path)
 
     def on_next_clicked(self, button):
         """Passer à l'étape suivante"""

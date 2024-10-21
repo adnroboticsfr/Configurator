@@ -34,7 +34,7 @@ class WelcomeStep(Gtk.Box):
             self.main_container.pack_start(self.logo_image, False, False, 0)
 
         # Ajouter un message de bienvenue
-        self.label = Gtk.Label(label=_("Welcome to the 3D Printer Configuration"))
+        self.label = Gtk.Label(label=_("Welcome"))
         self.label.set_name("welcome-label")
         self.label.set_line_wrap(True)  # Permet le retour à la ligne automatique
         self.label.set_line_wrap_mode(Pango.WrapMode.WORD) 
